@@ -5,7 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Table()
+ * @ORM\Table(name="order_bitch")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\OrderRepository")
  */
 class Order
@@ -26,6 +26,11 @@ class Order
     public function __construct($reference)
     {
         $this->reference = $reference;
+    }
+
+    public function getId()
+    {
+        return $this->id;
     }
 
     public function getReference()

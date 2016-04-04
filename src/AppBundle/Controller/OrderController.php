@@ -15,20 +15,9 @@ class OrderController extends Controller
     public function indexAction()
     {
         $orders = $this->get('doctrine')->getRepository('AppBundle:Order')->findAll();
-        //$orders = array();
 
         return $this->render('order/index.html.twig', [
            'orders' => $orders,
-        ]);
-    }
-
-    /**
-     * @Route("/orders/{id}", name="order_show")
-     */
-    public function showAction(Order $order)
-    {
-        return $this->render('order/index.html.twig', [
-            'order' => $order,
         ]);
     }
 
@@ -44,5 +33,15 @@ class OrderController extends Controller
         $em->flush();
 
         return $this->redirect($this->generateUrl('order_show', ['id' => $order->getId()]));
+    }
+
+    /**
+     * @Route("/orders/{id}", name="order_show")
+     */
+    public function showAction(Order $order)
+    {
+        return $this->render('order/show.html.twig', [
+            'order' => $order,
+        ]);
     }
 }
