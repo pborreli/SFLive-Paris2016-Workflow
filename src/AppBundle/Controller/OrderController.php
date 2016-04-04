@@ -6,6 +6,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use AppBundle\Entity\Order;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Workflow\Exception\ExceptionInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 class OrderController extends Controller
 {
@@ -43,5 +45,22 @@ class OrderController extends Controller
         return $this->render('order/show.html.twig', [
             'order' => $order,
         ]);
+    }
+
+    /**
+     * @Route("/order/apply-transition/{id}", name="order_apply_transition")
+     * @Method("POST")
+     */
+    public function applyTransitionAction(Request $request, Order $order)
+    {
+        try {
+            $this->get('workflow.order')->apply($order, $request->request->get('transition'));
+
+            $this->get('doctrine')->getManager()->flush();
+        } catch (ExceptionInterface $e) {
+            $this->get('session')->getFlashBag()->add('danger', $e->getMessage());
+        }
+
+        return $this->redirect($this->generateUrl('order_show', ['id' => $order->getId()]));
     }
 }

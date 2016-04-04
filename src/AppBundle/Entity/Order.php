@@ -37,4 +37,14 @@ class Order
     {
         return $this->reference;
     }
+
+    public function getMarking()
+    {
+        return $this->marking;
+    }
+
+    public function setMarking($marking)
+    {
+        $this->marking = $marking;
+    }
 }
