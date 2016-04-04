@@ -35,3 +35,46 @@ framework:
                         - approved_by_spellchecker
                     to:
                         - published
+        order:
+            marking_store:
+                type: property_accessor
+            supports:
+                - AppBundle\Entity\Order
+            places:
+                - new_order
+                - shipping_fee
+                - delivery_fee
+                - payed
+                - server_validation
+                - customer_informed
+                - completed
+            transitions:
+                calculate_shipping_fee:
+                    from:
+                        - new_order
+                    to:
+                        - shipping_fee
+                calculate_delivery_fee:
+                    from: shipping_fee
+                    to: delivery_fee
+                pay:
+                    from:
+                        - delivery_fee
+                    to:
+                        - payed
+                validate_order:
+                    from:
+                        - payed
+                    to:
+                        - server_validation
+                inform_customer:
+                    from:
+                        - payed
+                    to:
+                        - customer_informed
+                complete:
+                    from:
+                        - server_validation
+                        - customer_informed
+                    to:
+                        - completed

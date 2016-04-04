@@ -20,7 +20,7 @@ class WorkflowUpdateSvgCommand extends ContainerAwareCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $workflow = $this->getContainer()->get('workflow.article');
+        $workflow = $this->getContainer()->get('workflow.order');
         $definition = $this->getProperty($workflow, 'definition');
 
         $dumper = new GraphvizDumper();

@@ -1,0 +1,25 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+    <h1>Order List</h1>
+    <ul class="list-unstyled">
+        {% for order in orders %}
+            <li>
+                <a href="{{ url('order_show', {id: order.id}) }}">
+                    {{ order.getReference() }}
+                </a>
+            </li>
+        {% else %}
+            <li>
+                <p>
+                    There is no orders.
+                </p>
+
+            </li>
+        {% endfor %}
+    </ul>
+
+    <form action="{{ url('order_create') }}" method="post"  class="form-inline">
+        <button type="submit"  class="btn btn-default">create a new order</button>
+    </form>
+{% endblock %}
