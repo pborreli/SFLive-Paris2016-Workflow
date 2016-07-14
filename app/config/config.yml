@@ -41,8 +41,9 @@ twig:
 # Doctrine Configuration
 doctrine:
     dbal:
-        url: "%database_url%"
-        charset:  UTF8
+        driver:   pdo_sqlite
+
+        path: "%database_path%"
 
     orm:
         auto_generate_proxy_classes: "%kernel.debug%"

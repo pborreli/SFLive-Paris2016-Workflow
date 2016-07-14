@@ -1,4 +1,4 @@
 parameters:
-    database_url: postgres://ubuntu@postgres.lxc/symfony_demo_workflow
+    database_path: "%kernel.root_dir%/data.db3"
 
     secret: ThisTokenIsNotSoSecretChangeIt
